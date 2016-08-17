@@ -177,6 +177,8 @@ class FrequencyRule(RuleType):
 
     def add_count_data(self, data):
         """ Add count data to the rule. Data should be of the form {ts: count}. """
+        elastalert_logger.info('add_count_data'
+
         if len(data) > 1:
             raise EAException('add_count_data can only accept one count at a time')
 
@@ -187,6 +189,8 @@ class FrequencyRule(RuleType):
         self.check_for_match('all')
 
     def add_terms_data(self, terms):
+        elastalert_logger.info('add_terms_data')
+
         for timestamp, buckets in terms.iteritems():
             for bucket in buckets:
                 event = ({self.ts_field: timestamp,
@@ -195,6 +199,8 @@ class FrequencyRule(RuleType):
                 self.check_for_match(bucket['key'])
 
     def add_data(self, data):
+        elastalert_logger.info('add_data')
+
         if 'query_key' in self.rules:
             qk = self.rules['query_key']
         else:
